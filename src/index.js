@@ -9,6 +9,7 @@ app.use(cors());
 
 const schema = gql`
 type Query {
+    users: [User!]!
     me: User
     user(id: ID!):User
 }
@@ -18,18 +19,21 @@ type User{
     username:String!
 }
 `;
+let users ={
+    1:{id:'1',username:'jerin'},2:{id:'2',username:'majeed'}
+}
+let me = users[1];
 
 const resolvers ={
     Query:{
         me:() =>{
-            return{
-            username:'jerin'
-            };
+            return me;
         },
-        user:()=>{
-            return{
-                username:'jerin2'
-            };
+        user:(parent, {id})=>{
+            return users[id];
+        },
+        users:() =>{
+            return Object.values(users);
         },
     },
 };
@@ -40,6 +44,6 @@ const server = new ApolloServer({
 
 server.applyMiddleware({app,path:'/graphql'});
 
-app.listen({port:8000},()=>{
+app.listen({port:4000},()=>{
     console.log('Apollo server running http://localhost:8000/graphql');
 });
