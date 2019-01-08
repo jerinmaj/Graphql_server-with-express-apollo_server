@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import { ApolloServer,gql } from "apollo-server-express";
 // console.log(process.env.MY_SECRET);
+// https://www.robinwieruch.de/graphql-apollo-server-tutorial/
 
 import cors from 'cors';
 const app =express();
@@ -44,6 +45,6 @@ const server = new ApolloServer({
 
 server.applyMiddleware({app,path:'/graphql'});
 
-app.listen({port:4000},()=>{
+app.listen({port:8000},()=>{
     console.log('Apollo server running http://localhost:8000/graphql');
 });
