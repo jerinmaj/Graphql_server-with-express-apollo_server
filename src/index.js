@@ -29,4 +29,6 @@ sequelize.sync().then(async () => {
 app.listen({ port: 8000 }, () => {
     console.log('Apollo server running http://localhost:8000/graphql');
 });
-});   
+});  
+
+  
