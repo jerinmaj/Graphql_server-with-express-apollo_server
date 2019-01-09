@@ -2,7 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import { ApolloServer,gql } from "apollo-server-express";
 // console.log(process.env.MY_SECRET);
-// https://www.robinwieruch.de/graphql-apollo-server-tutorial/
+
 
 import cors from 'cors';
 const app =express();
@@ -27,7 +27,7 @@ let me = users[1];
 
 const resolvers ={
     Query:{
-        me:() =>{
+        me:(parent, args, {me}) =>{
             return me;
         },
         user:(parent, {id})=>{
@@ -41,6 +41,10 @@ const resolvers ={
 const server = new ApolloServer({
     typeDefs:schema,
     resolvers,
+    context:{
+        me: users[1],
+    }
+
 });
 
 server.applyMiddleware({app,path:'/graphql'});
