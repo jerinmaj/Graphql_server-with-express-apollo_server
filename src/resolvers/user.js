@@ -4,18 +4,18 @@ export default {
         return await models.User.findAll();
       },
       user: async(parent, { id }, { models }) => {
-        return await models.User.findByID(id);
+        return await models.User.findById(id);
       },
-      me: async (parent, args, { models, me }) => {
-        return await models.User.findByID(me.id)
-      },
+      // me: async (parent, args, { models, me }) => {
+      //   return await models.User.findByID(me.id)
+      // },
     },
   
     User: {
       messages: async (user, args, { models }) => {
         return await models.Message.findAll({
           where: {
-            userId: user.id,
+            authorId: user.id,
           },
         });
       },

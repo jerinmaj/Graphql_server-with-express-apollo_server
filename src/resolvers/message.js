@@ -12,13 +12,20 @@ export default {
   },
 
   Mutation: {
-    createMessage: async (parent, { text }, { me, models }) => {
+    createMessage: async (parent, { text, authorId }, { models }) => {
       return await models.Message.create({
         text,
-        userId: me.id,
+        authorId: authorId,
       });
     },
-
+    updateMessage: async (parent ,{ content, id}, info)=>
+      models.Message.update({
+        content,
+      },{
+        where:{
+          id:id
+        }
+      }),
     deleteMessage: async (parent, { id }, { models }) => {
       return await models.Message.destroy({ where: { id } });
     },
